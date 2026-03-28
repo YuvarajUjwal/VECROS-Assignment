@@ -127,7 +127,7 @@ MOTOR
   ```
   LED ON
   LED OFF
-  MOTOR CW 100
+  MOTOR
   ```
 
 ---
