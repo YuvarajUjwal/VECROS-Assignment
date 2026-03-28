@@ -12,24 +12,24 @@ This project implements a complete embedded communication pipeline using MQTT an
 User → Python → MQTT Broker → ESP32 → UART → Arduino (STM Emulator) → LED / Motor
 ```
 
-### Description:
+### Description
 
 * The Python script acts as the user interface.
-* MQTT broker handles message transmission.
+* The MQTT broker handles message transmission.
 * ESP32 serves as a bridge between MQTT and UART.
 * Arduino emulates STM32 functionality by processing commands and controlling hardware.
 
 ---
 
-## Components Used
+## ⚙️ Components Used
 
-### Hardware:
+### Hardware
 
 * ESP32 (MQTT client + UART bridge)
 * Arduino (used as STM32 emulator)
 * LED (for output indication)
 
-### Software:
+### Software
 
 * Python (paho-mqtt library)
 * Arduino IDE
@@ -51,7 +51,7 @@ User → Python → MQTT Broker → ESP32 → UART → Arduino (STM Emulator) �
 
 ---
 
-## Command Format
+## 🧾 Command Format
 
 The system supports simple text-based commands:
 
@@ -61,22 +61,22 @@ LED OFF
 MOTOR
 ```
 
-### Features:
+### Features
 
 * Case-insensitive command handling
-* Supports extensible command structure
+* Extensible command structure
 
 ---
 
-## Hardware Connections
+## 🔌 Hardware Connections
 
 ### UART Communication
 
-| ESP32       | Arduino (STM Emulator) |
-|------------|------------------------|
-| TX (GPIO17) | RX (Pin 0)            |
+| ESP32       | Arduino (STM Emulator)  |
+| ----------- | ----------------------- |
+| TX (GPIO17) | RX (Pin 0)              |
 | RX (GPIO16) | TX (Pin 1) *(optional)* |
-| GND         | GND                   |
+| GND         | GND                     |
 
 > Note: Current implementation uses unidirectional UART (ESP32 → Arduino).
 
@@ -84,15 +84,32 @@ MOTOR
 
 ### LED Connection
 
-```text
+```
 Arduino GPIO (Pin 13) → Resistor → LED → GND
+```
+
+---
+
+### Motor (Simulated)
+
+* Stepper motor functionality is simulated using LED blinking.
+* In a real implementation, a stepper driver (A4988/DRV8825) would be used.
+
+---
+
+### Power Considerations
+
+* Common ground is maintained across ESP32 and Arduino.
+* ESP32 operates at 3.3V, Arduino at 5V.
+* External power supply would be required for actual motor operation.
+
 ---
 
 ## Assumptions & Design Decisions
 
 * Arduino is used to emulate STM32L452REP due to hardware constraints.
 * The firmware is designed to be hardware-agnostic and easily portable to STM32 platforms.
-* Stepper motor functionality is simulated using LED blinking.
+* Stepper motor control is simulated due to lack of physical hardware.
 * A public MQTT broker is used for simplicity and rapid prototyping.
 
 ---
@@ -101,23 +118,24 @@ Arduino GPIO (Pin 13) → Resistor → LED → GND
 
 ### 1. Python (MQTT Publisher)
 
-* Install dependency:
+Install dependency:
 
-  ```
-  pip install paho-mqtt
-  ```
-* Run the script:
+```
+pip install paho-mqtt
+```
 
-  ```
-  python mqtt_sender.py
-  ```
+Run the script:
+
+```
+python mqtt_sender.py
+```
 
 ---
 
 ### 2. ESP32
 
-* Upload ESP32 firmware via Arduino IDE
-* Ensure WiFi credentials are correctly set
+* Upload ESP32 firmware using Arduino IDE
+* Ensure WiFi credentials are correctly configured
 * Open Serial Monitor (115200 baud)
 
 ---
@@ -131,26 +149,26 @@ Arduino GPIO (Pin 13) → Resistor → LED → GND
 
 ### 4. Test
 
-* Enter commands in Python terminal:
+Enter commands in Python terminal:
 
-  ```
-  LED ON
-  LED OFF
-  MOTOR
-  ```
+```
+LED ON
+LED OFF
+MOTOR
+```
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 /python      → MQTT publisher script
-/esp32       → ESP32 code
+/esp32       → ESP32 firmware
 /arduino     → Arduino (STM emulator) code
 ```
 
 ---
 
-## 🎯 Conclusion
+## Conclusion
 
-This project demonstrates a complete embedded communication system integrating IoT (MQTT) with microcontroller-based hardware control. The modular and protocol-driven design ensures scalability and portability across different hardware platforms.
+This project demonstrates a complete embedded communication system integrating IoT (MQTT) with microcontroller-based hardware control. The modular and protocol-driven design ensures scalability, portability, and ease of integration across different hardware platforms.
