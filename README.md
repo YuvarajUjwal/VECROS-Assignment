@@ -70,13 +70,22 @@ MOTOR
 
 ## Hardware Connections
 
-| ESP32       | Arduino    |
-| ----------- | ---------- |
-| TX (GPIO17) | RX (Pin 0) |
-| GND         | GND        |
+### UART Communication
 
-> Note: Only unidirectional UART communication is used in this implementation.
+| ESP32       | Arduino (STM Emulator) |
+|------------|------------------------|
+| TX (GPIO17) | RX (Pin 0)            |
+| RX (GPIO16) | TX (Pin 1) *(optional)* |
+| GND         | GND                   |
 
+> Note: Current implementation uses unidirectional UART (ESP32 → Arduino).
+
+---
+
+### LED Connection
+
+```text
+Arduino GPIO (Pin 13) → Resistor → LED → GND
 ---
 
 ## Assumptions & Design Decisions
@@ -138,7 +147,6 @@ MOTOR
 /python      → MQTT publisher script
 /esp32       → ESP32 code
 /arduino     → Arduino (STM emulator) code
-/hardware    → PCB design files (schematic, layout, Gerber)
 ```
 
 ---
